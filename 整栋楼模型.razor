@@ -1,0 +1,31 @@
+@inject IJSRuntime jsRuntime
+
+<Layout>
+        <Header>Header</Header>
+        <Content>
+            <div @ref="modelContainer"
+            style="display:inline-block; width:100%; height:100%;">
+            </div>
+        </Content>
+        <Footer>Footer</Footer>
+</Layout>
+
+@code{
+    [Parameter]
+    public RenderFragment ChildContent { get; set; }
+
+    ElementReference modelContainer;
+    protected override void OnInitialized()
+    {
+        @* Console.WriteLine("kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk"); *@
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await jsRuntime.InvokeVoidAsync("modeLoader.draw", modelContainer);
+        @* await jsRuntime.InvokeVoidAsync("modeLoader.draw"); *@
+        @* await Task.Delay(10); *@
+        StateHasChanged();
+    }
+
+}

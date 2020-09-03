@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Primitive example</title>
+  </head>
+
+<body>
+
+<script>
+var bar = "baz";
+console.log(bar);// baz
+console.log(JSON.stringify(bar));// "baz"
+bar.toUpperCase();
+console.log(bar);// baz
+console.log(JSON.stringify(bar));// "baz"
+console.log(bar.valueOf());//baz
+
+console.log('---------------------------------------'); 
+
+var barObj=new String('bazObj');
+console.log(barObj);// {"bazObj"}
+console.log(JSON.stringify(barObj));// "bazObj"
+barObj.toUpperCase();
+console.log(barObj);// {"bazObj"}
+console.log(JSON.stringify(barObj));// "bazObj"
+console.log(barObj.valueOf());//bazObj
+
+console.log('---------------------------------------'); 
+
+barObj=barObj.toUpperCase();
+console.log(JSON.stringify(barObj));// "bazObj"
+
+var barObj1=new String('bazObj');
+var barObj2=new String('bazObj');
+barObj1==barObj2;//false
+barObj1===barObj2;//false
+
+var bar1='bazObj';
+var bar2='bazObj';
+bar1==bar2;//true
+bar1===bar2;//true
+
+console.log('++++++++++++++++++++++++++++++++++++++++++++++++++++')
+
+// 基本类型
+let foo = 5;
+
+// 定义一个貌似可以改变基本类型值的函数 ,传值。。。不是传地址
+function addTwo(num) {
+   num += 2;
+   console.log(num);//7
+}
+// 和前面的函数一样 ,传值。。。不是传地址
+function addTwo_v2(foo) {
+   foo += 2;
+   console.log(foo);//7
+}
+
+// 调用第一个函数，并传入基本类型值作为参数
+addTwo(foo);
+// Getting the current Primitive value
+console.log(foo);   // 5
+
+// 尝试调用第二个函数...
+addTwo_v2(foo);
+console.log(foo);   // 5
+</script>
+
+</body>
+</html>

@@ -1,0 +1,13 @@
+.nav{
+  display: flex;
+  align-items: stretch;
+}
+
+.nav .boldButton,.nav .ulDiv{
+  background-color:#eee;
+}
+
+.nav .boldButton{
+  border-width: 0px 0px 0px 1px;
+  border-color: #ccc;
+}

@@ -1,0 +1,19 @@
+<!doctype html>
+<html>
+ <head>
+  <title>Boring example</title>
+ </head>
+ <body>
+  <p>Hello <span id=x>world<em>hh</em></span>!</p>
+  <script>
+   function test(e) {
+     console.log(e)
+   }
+   document.addEventListener("hey", test, {capture: true})
+   document.body.addEventListener("hey", test, {capture: true})
+   document.getElementById("x").addEventListener("hey",test, {capture: true})
+   var ev = new Event("hey", {bubbles:false})
+   document.getElementById("x").dispatchEvent(ev)
+  </script>
+ </body>
+</html>

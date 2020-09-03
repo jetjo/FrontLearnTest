@@ -1,0 +1,23 @@
+.container{
+   margin-top:10px;
+   margin-bottom:10px;
+}
+
+.container{
+   padding-right: 15px;
+   padding-left: 15px;
+   margin-left:auto;
+   margin-right:auto;
+}
+
+.container:before,
+.container:after {
+    display:table;
+    content:" nn ";
+    color:#ffffff00
+}
+
+.container:after {
+clear: both;
+}
+    

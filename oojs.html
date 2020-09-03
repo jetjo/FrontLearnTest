@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Object-oriented JavaScript example</title>
+  </head>
+
+  <body>
+    <p>This example requires you to enter commands in your browser's JavaScript console (see <a href="https://developer.mozilla.org/en-US/docs/Learn/Common_questions/What_are_browser_developer_tools">What are browser developer tools</a> for more information).</p>
+<canvas>
+
+</canvas>
+  </body>
+
+    <script>
+	const name=['BobGlobal', 'Smith'];//行14
+	window.name0=['BobWindow', 'Smith'];//行15
+	
+var person = {
+  name : ['Bob', 'Smith'],//行17
+  age : 32,
+  gender : 'male',
+  interests : ['music', 'skiing'],
+  greeting:function(){
+  alert("Hi,I AM "+this.name[0]+' .');//name指的是行17定义的name
+  },
+  greetingGlobal:function(){
+  this.hh='hh';
+  alert("Hi,I AM "+name[0]+' .');//name指的是行14定义的name
+  }
+}
+  //var peosonGreet=new person.greeting();//erro
+  //var peosonGreet=new person.greetingGlobal();//
+  
+  //person.greeting();
+  //person.greetingGlobal();
+  var greetingWindow=function(){
+  //alert("Hi,I AM "+name[0]+' .');//name指的是行14定义的name
+  //alert("Hi,I AM "+this.name[0]+' .');//this.name[0]的值是undefined，当作为构建函数调用时抛出错误'can't access property 0, this.name is undefined',不继续执行
+  alert("Hi,I AM "+this.name+' .');//this.name的值是'',当作为构建函数调用时,值为undefined
+  alert("Hi,I AM "+this+' .');//this的值是window,当作为构建函数调用时,值为object
+  //alert("Hi,I AM "+this.name0[0]+' .');//name0指的是行15定义的name0
+  //alert("Hi,I AM "+name0[0]+' .');//name0指的是行15定义的name0,window实例的成员
+  this.pro1=arguments?arguments[0]:'pro1';//无论作为构建函数还是普通函数,调用时,arguments是参数数组
+  };
+  /*greetingWindow.prototype.pro2='pro2';//ok
+  //greetingWindow();
+  var greetWindow=new greetingWindow();
+  var greetWindow1=new greetingWindow('pro11');
+  greetWindow.pro1='pro1';//greetWindow1不受影响
+  greetWindow.pro2='pro20';//greetWindow1不受影响，greetingWindow.prototype.pro2
+  */
+  //var func=greetingWindow();//undefined
+    </script>
+	
+	<script>
+	//greetingWindow();//ok
+	//alert("Hi,I AM "+this.name[0]+' .');//this.name[0]的值是undefined
+	//alert("Hi,I AM "+name[0]+' .');//name指的是行14定义的name
+	//alert("Hi,I AM "+this.name0[0]+' .');//name0指的是行15定义的name0
+  //alert("Hi,I AM "+name0[0]+' .');//name0指的是行15定义的name0,window实例的成员
+  /*console.log(window.greetingWindow);//ok
+  console.log(this.greetingWindow);//ok
+  console.log(greetingWindow);//ok
+  */
+  /*
+  console.log(window.name);//输出'<empty string>',即window.name的值是''
+  console.log(this.name);//输出'<empty string>'
+  console.log(name);//ok
+  */
+  var ovj1={hh1:'hh1'}
+  var ovj2={hh2:'hh2'}
+function createNewPerson(name) {
+  var obj =Object.create({});//new Object();//{}
+  obj.name = name;
+  obj.greeting = function () {
+    alert('Hi! I\'m ' + this.name + '.');
+  }
+  return obj;
+}
+
+//var salva = createNewPerson('salva');
+
+function Person(name) {
+  this.name = name;
+  this.greeting = function() {
+    alert('Hi! I\'m ' + this.name + '.');
+  };
+}
+
+//var salvaNew=new Person('salvaNew');
+//var salvaNew1=new Person('salvaNew1');
+
+function createNewPersonPerson(name) {
+  var obj =Object.create(new Person(name));
+  obj.name1 = name+'1';
+  obj.greeting1 = function () {
+    alert('Hi! I\'m ' + this.name + '.');
+  }
+  return obj;
+}
+
+
+function createNewPersonPerson(name,protoType) {
+  var obj =Object.create(protoType);//对于obj来讲，protoType就是类，读写从类继承过来的成员不会对类造成影响
+  obj.name1 = name+'1';//添加属性和成员也不会对类(protoType)产生影响,相反，如果对protoType的成员进行增删改查,所有的obj都会受影响
+  obj.greeting1 = function () {
+    alert('Hi! I\'m ' + this.name + '.');
+  }
+  return obj;
+}
+
+/*var salvaNewsalva=new createNewPersonPerson('salvaNewsalva',salvaNew);
+var salvaNewsalva1=new createNewPersonPerson('salvaNewsalva1',salvaNew);*/
+
+/*
+var salvaNewsalva=new createNewPersonPerson('salvaNewsalva',new Person('HH'));
+var salvaNewsalva1=new createNewPersonPerson('salvaNewsalva',new Person('HH'));
+*/
+
+/*var salvaNewsalva=new createNewPersonPerson('salvaNewsalva',createNewPerson('salva'));
+var salvaNewsalva1=new createNewPersonPerson('salvaNewsalva',createNewPerson('salva'));*/
+
+/*function Teacher(name, subject){
+Person.call(this,name);
+this.subject=subject;
+}
+
+var teacher=new Teacher('jack','makeLove');//代码段是全部编译完再执行，所以这里的Teacher还是行137的Teacher
+*/
+
+function Teacher1(name, subject){
+Person.call(this,name);
+this.subject=subject;
+}
+
+var teacher=new Teacher1('jack','makeLove');
+
+function Teacher(subject){//行137
+Person.call(this);
+this.subject=subject;
+}
+
+var teacherPerson=new Person("jack");
+
+//var teacher=new Teacher('jack','makeLove');//普通函数可以重载，但构件函数不能重载，所以这里的Teacher是行137的Teacher
+
+var teacherDef=new Teacher('makeLove');
+
+//Teacher1是Person兄弟类的子类
+Teacher1.prototype=Object.create(Person.prototype);//更改构建函数的prototype，不会改变之前已经通过此构建函数实例化的对象的prototype(__proto__),Teacher1是Person的父类(prototype)的子类的子类，即Teacher1是Person兄弟类的子类
+
+var teacherNP=new Teacher1('jack','makeLove');
+Teacher1.prototype=Person.prototype//这样，Teacher1与Person成为了兄弟类
+var teacherNP1=new Teacher1('jack','makeLove');
+//teacherNP.__proto__.__proto__===teacherNP1.__proto__
+//teacherNP.constructor===teacherNP1.constructor
+//teacherNP.constructor!=Person.constructor
+//teacherNP.constructor===Person.prototype.constructor
+//Teacher1是Person类的子类
+Teacher1.prototype=new Person();
+var teacherNP2=new Teacher1('jack','makeLove');
+
+var personNp=new teacherNP1.constructor();//person
+Teacher1.prototype.constructor=Teacher1;
+var personNp1=new teacherNP1.constructor();//teacher
+
+	</script>
+	
+	<script>
+	var canvas=document.querySelector('canvas');
+	
+	var ctx=canvas.getContext('2d');
+	
+	const width = canvas.width = window.innerWidth;
+const height = canvas.height = window.innerHeight;
+
+function random(min,max) {
+  return Math.floor(Math.random()*(max-min)) + min;
+}
+
+function randomColor() {
+  return 'rgb(' +
+         random(0, 255) + ', ' +
+         random(0, 255) + ', ' +
+         random(0, 255) + ')';
+}
+
+function Ball(x,y,velx,vely,color,size){
+this.x=x;
+this.y=y;
+this.velX=velx;
+this.velY=vely;
+this.size=size;
+this.color=color;
+}
+
+Ball.prototype.draw=function(){
+ctx.beginPath();
+ctx.fillStyle=this.color;
+ctx.arc(this.x,this.y,this.size,0,2*Math.PI);
+ctx.fill();
+}
+
+Ball.prototype.update = function() {
+  if ((this.x + this.size) >= width) {
+    this.velX = -(this.velX);
+  }
+
+  if ((this.x - this.size) <= 0) {
+    this.velX = -(this.velX);
+  }
+
+  if ((this.y + this.size) >= height) {
+    this.velY = -(this.velY);
+  }
+
+  if ((this.y - this.size) <= 0) {
+    this.velY = -(this.velY);
+  }
+
+  this.x += this.velX;
+  this.y += this.velY;
+  
+  this.collisionDetect();
+}
+
+Ball.prototype.collisionDetect = function() {
+  for (let j = 0; j < balls.length; j++) {
+    if (this !== balls[j]) {
+      const dx = this.x - balls[j].x;
+      const dy = this.y - balls[j].y;
+      const distance = Math.sqrt(dx * dx + dy * dy);
+
+      if (distance < this.size + balls[j].size) {
+        balls[j].color = this.color = randomColor();
+      }
+    }
+  }
+}
+
+let balls = [];
+
+while (balls.length < 25) {
+    let size = random(10, 20);
+    let ball = new Ball(
+      // 为避免绘制错误，球至少离画布边缘球本身一倍宽度的距离
+      random(0 + size, width - size),
+      random(0 + size, height - size),
+      random(-7, 7),
+      random(-7, 7),
+      randomColor(),
+      size
+    );
+    balls.push(ball);
+  }
+  
+  function loop(){
+  ctx.fillStyle='rgba(0,0,0,0.25)';
+  ctx.fillRect(0,0,width,height);
+  
+  for(let i=0;i<balls.length;i++){
+  balls[i].draw();
+  balls[i].update();
+  }
+  
+  requestAnimationFrame(loop);
+  }
+
+loop();
+	</script>
+</html>

@@ -1,0 +1,51 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <link href="nav.css" type="text/css" rel="stylesheet" />
+
+    <script src="https://use.fontawesome.com/7a0cfc8a6a.js"></script>
+
+    <title></title>
+</head>
+<body>
+    <div id="nav" class="nav">
+        <div class="ulDiv">
+            <ul v-if="isMini">
+                <li><a class="" href="#"><i class="fa fa-home fa-fw" aria-hidden="true"></i></a></li>
+                <li><a class="" href="#"><i class="fa fa-book fa-fw" aria-hidden="true"></i></a></li>
+                <li><a class="" href="#"><i class="fa fa-pencil fa-fw" aria-hidden="true"></i></a></li>
+                <li><a class="" href="#"><i class="fa fa-cog fa-fw" aria-hidden="true"></i></a></li>
+            </ul>
+            <ul v-else>
+                <li><a class="" href="#"><i class="fa fa-home fa-fw" aria-hidden="true"></i>&nbsp; 首页</a></li>
+                <li><a class="" href="#"><i class="fa fa-book fa-fw" aria-hidden="true"></i>&nbsp; 关于我们</a></li>
+                <li><a class="" href="#"><i class="fa fa-pencil fa-fw" aria-hidden="true"></i>&nbsp; 后台应用编辑</a></li>
+                <li><a class="" href="#"><i class="fa fa-cog fa-fw" aria-hidden="true"></i>&nbsp; 系统设置</a></li>
+            </ul>
+        </div>
+        <button class="boldButton" v-on:click="foleSwitch">
+            <i v-if="isMini" class="fa fa-indent" aria-hidden="true"></i>
+            <i v-else class="fa fa-outdent" aria-hidden="true"></i>
+        </button>
+        <div>
+            <p>吃饭、睡觉、打豆豆</p>
+        </div>
+    </div>
+    <script>
+        var nav=new Vue({
+        el:'#nav',
+        data: {
+            isMini:false
+            },
+            methods: {
+                foleSwitch: function () {
+                    this.isMini = !this.isMini;
+                }
+            }
+        });
+    </script>
+</body>
+</html>

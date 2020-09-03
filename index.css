@@ -1,0 +1,61 @@
+body{
+  color:#fff;
+  background-color:midnightblue;
+}
+
+.titleDiv{
+  z-index: 100
+}
+
+.container-fluid,.titleDiv {
+  color: whitesmoke;
+  background-color:midnightblue;
+}
+
+.container-fluid {
+  margin:-50px auto;
+  padding: 5px auto;
+}
+
+.container-fluid:last-of-type {
+  height: 100%;
+  z-index: 1
+}
+
+.timeVcol{
+  text-align: left;
+}
+
+.addressWeatherVcol{
+  text-align: right;
+}
+
+.row{
+  border-block-end-style:groove;
+  border-block-end-width: 1px;
+  border-block-end-color: grey;
+}
+
+.titleDiv{
+  text-align: center;
+  font-size: 1.5rem;
+  margin-top: 0px;
+  height: 50px;
+}
+
+.titleDiv span{
+  display: inline-flex;
+  padding: 10px 20px;
+  box-shadow:inset 1px -1px 50px azure, inset -1px 1px 50px azure;
+}
+
+.siderbar{
+  height: 100%;
+  width: 60px;
+  background-color: midnightblue;
+}
+
+.massageDiv{
+  height: 2.2rem;
+  line-height: 2.2rem;
+}

@@ -1,0 +1,22 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <link type="text/css" rel="stylesheet" href="file:///H:/repos_Net/test.css"/>
+</head>
+<body>
+    <!--<div style="background-color:black; padding:10px;">-->
+    <div class="container" style="background-color:red;">first red div</div>
+    <div id="secondDiv" class="container" style="background-color:blue;">second blue div</div>
+    <div id="thirdDiv" class="container" style="background-color:green;">third green div</div>
+	
+	<script>
+		  document.querySelector('.container').addEventListener("mousedown", (e) => {
+            console.log(e);
+          });
+	</script>
+    <!--</div>-->
+</body>
+</html>

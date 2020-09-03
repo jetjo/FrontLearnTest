@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>ES2015 example</title>
+	
+	<!--script module src='file:///H:/repos_Net/math.js'/--><!--Uncaught SyntaxError: Unexpected token 'export'，，，-->
+	<!--script type="module" src='file:///H:/repos_Net/math.js'/-->
+	<!--Access to script at 'file:///H:/repos_Net/math.js' from origin 'null' has been blocked by CORS policy:
+	Cross origin requests are only supported for protocol schemes: http, data, chrome, chrome-extension, https.
+-->
+<script type="module" src='math.js'/><!--and this file can't access with file-protocal(file://...),
+otherwise the following erro occur:
+'Access to script at 'math.js' from origin 'null' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header 
+is present on the requested resource.'-->
+  </head>
+
+  <body>
+<script>
+var handler={ww:'ww'};
+
+var obj = {
+    // Sets the prototype. "__proto__" or '__proto__' would also work.
+    __proto__: {hh:'hh~'},
+    // Computed property name does not set prototype or trigger early error for
+    // duplicate __proto__ properties.
+    ['__proto__']: {jj:'jj'},
+    // Shorthand for ‘handler: handler’
+    handler,
+    // Methods
+    toString() {
+     // Super calls
+     return "d " + super.hh;//JSON.stringify(this.__proto__);//super.toString();
+    },
+    // Computed (dynamic) property names
+    [ "prop_" + (() => 42)() ]: 42
+};
+
+'900'==900;//true,auto_ convert right-side-type into left-side
+'900'===900;//false,no auto_-type-convertion
+
+'900'!=900;//false
+'900'!==900;//true,because the simple-data-type is diff_
+
+/*Uncaught SyntaxError
+{pro1:'pro1'}=={pro1:'pro1'}//false,Not the same reference-value
+{pro1:'pro1'}==={pro1:'pro1'}//false;Not the same reference-value,Although the type is same one
+*/
+
+let obj1={pro1:'pro1'};
+let obj2={pro1:'pro1'};
+/*Uncaught SyntaxError
+{pro1:'pro1'}.__proto__=={pro1:'pro1'}.__proto__//true,The same default prototype
+{pro1:'pro1'}.__proto__==={pro1:'pro1'}.__proto__//true,The same default prototype
+*/
+obj1.__proto__==obj2.__proto__//true,The same default prototype obj
+obj1.__proto__===obj2.__proto__//true,The same default prototype obj
+
+/*Uncaught SyntaxError
+{pro1:'pro1'}!={pro1:'pro1'}//true
+{pro1:'pro1'}!=={pro1:'pro1'}//true
+*/
+
+let obj11={pro1:'pro1',__proto__:{}};
+let obj21={pro1:'pro1',__proto__:{}};
+
+obj11.__proto__==obj21.__proto__//false
+obj11.__proto__===obj21.__proto__//false
+
+obj11.__proto__.__proto__==obj21.__proto__.__proto__//true
+obj11.__proto__.__proto__===obj21.__proto__.__proto__//true
+
+</script>
+
+<script>
+const name='jackGlobal'
+var thistest={
+name:'jack',
+say(){
+alert(`hi,i am ${this.name}`);
+},
+arrowsy:()=>{alert(`hi,i am ${this.name}`);}
+}
+</script>
+
+<script defer type="module">
+//import * as math from file:///H:/repos_Net/math.js//不支持。。。
+
+//console.log("2π = " + math.sum(math.pi, math.pi));
+//console.log("2π = " + sum(PI, PI));//sum未定义
+/*System.import("file:///H:/repos_Net/math.js").then(function(m) {
+  alert("2π = " + math.sum(math.pi, math.pi));
+});//System未定义
+*/
+
+// Create execution sandboxes – new Loaders
+/*var loader = new Loader({
+  global: fixup(window) // replace ‘console.log’
+});
+loader.eval("console.log(\"hello world!\");");System未定义
+*/
+
+// Proxying a normal object
+var target = {name:'target'};
+var handler = {
+  get: function (receiver, name) {
+  console.log(JSON.stringify(receiver));
+    return `Hello, ${name}!`;
+  }
+};
+
+var p = new Proxy(target, handler);
+p.world === "Hello, world!";
+</script>
+  </body>
+</html>

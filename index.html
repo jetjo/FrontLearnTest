@@ -1,0 +1,131 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <link rel="stylesheet" href="index.css" />
+
+    <!--<link rel="stylesheet" href="font-awesome-4.7.0/css/font-awesome.min.css">-->
+    <!-- 新 Bootstrap 核心 CSS 文件 -->
+    <!--<link href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">-->
+    <!-- 新 Bootstrap4 核心 CSS 文件 -->
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+
+    <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+    <!--<script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>-->
+    <script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+
+    <!--引入高德地图-->
+    <script type="text/javascript" src="https://webapi.amap.com/maps?v=1.3&key=026e419cb5a58f875927f21bb27f1403"></script>
+    <script src="locationService.js"></script>
+    <script src="fetchService.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.11"></script>
+
+    <script src="https://use.fontawesome.com/7a0cfc8a6a.js"></script>
+    <title>空间智能运维管理平台</title>
+</head>
+<body>
+    <div class="container-fluid titleDiv">
+        <span>
+            空间智能运维管理平台
+        </span>
+    </div>
+    <div class="container-fluid visible-on">
+        <div class="row">
+            <!--<div class="col-*-1"></div>-->
+            <div id="timeV" class="col timeVcol">
+                <span>{{currentTime}}</span>
+            </div>
+            <div id="addressWeatherV" class="col addressWeatherVcol">
+                <span id="geoLocationVul">北京市 海淀区</span>
+                <span id="weatherCur_">晴 20℃</span>
+                <span id="geoLocation" hidden>高德地图</span>
+            </div>
+            <!--<div class="col-*-1"></div>-->
+        </div>
+        <div class="row">
+            <div class="siderbar list-group">
+                <a class="list-group-item" href="#"><i class="fa fa-home fa-fw" aria-hidden="true"></i>&nbsp; 首页</a>
+                <a class="list-group-item" href="#"><i class="fa fa-book fa-fw" aria-hidden="true"></i>&nbsp; 关于我们</a>
+                <a class="list-group-item" href="#"><i class="fa fa-pencil fa-fw" aria-hidden="true"></i>&nbsp; 后台应用编辑</a>
+                <a class="list-group-item" href="#"><i class="fa fa-cog fa-fw" aria-hidden="true"></i>&nbsp; 系统设置</a>
+            </div>
+            <div class="col-md-11">
+                <div class="row massageDiv">
+                    <div id="message" class="col messageVcol">
+                        <span>【党建信息】2020年6月6日召开党员干部大会</span>
+                    </div>
+                    <div id="addressWeatherV" class="col addressWeatherVcol">
+                        <span id="newMessage">【最新消息】所有模块最新消息提醒</span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2">
+                        <div class="cardContainer">
+                            <div class="carD">
+
+                            </div>
+                            <div class="carD">
+
+                            </div>
+                            <div class="carD">
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-7">
+
+                    </div>
+                    <div class="col-md-2">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        window.dateRegp = /[/]/gi;
+        window.dateRegp1 = /[ ]/gi;
+
+        var timeV = new Vue({
+            el: '#timeV',
+            data: {
+                currentTime: new Date().toLocaleString().replace(window.dateRegp, '-') + ' '
+            }
+        });
+
+        getLocation('geoLocation', 'geoLocationVul', (adcode) => {
+
+            urlGet('https://restapi.amap.com/v3/weather/weatherInfo?city=' + adcode + '&key=7d7d7bf189c4932fcc9074b4a4986d20',
+                (res) => {
+                    res.json().then(data => {
+                        let weths = data.lives;
+                        if (weths.length > 0) {
+                            let weth = weths[0];
+                            document.getElementById('weatherCur_').innerHTML = '  ' + weth['weather'] + '  ' + weth['temperature'] + '℃';
+                        }
+                    });
+                }, (err) => {
+                    if (err)
+                        console.log(err);
+                });
+
+        });
+    </script>
+
+    <!-- bootstrap.bundle.min.js 用于弹窗、提示、下拉菜单，包含了 popper.min.js -->
+    <!--<script src="https://cdn.staticfile.org/popper.js/1.15.0/umd/popper.min.js"></script>-->
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+
+    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+    <!--<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>-->
+    <!-- 最新的 Bootstrap4 核心 JavaScript 文件 -->
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+    <script src="http://cdn.bootcss.com/less.js/1.7.0/less.min.js"></script>
+
+</body>
+</html>
